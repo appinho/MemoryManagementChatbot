@@ -29,7 +29,7 @@ public:
     ~ChatBot(); // destructor
 
     //// STUDENT CODE
-    ////
+    //// Complete Rule of five
     ChatBot(const ChatBot &other);              // Copy constructor
     ChatBot &operator=(const ChatBot &other);   // Copy assignment operator
     ChatBot(ChatBot &&other);                   // Move contructor

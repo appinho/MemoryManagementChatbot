@@ -14,14 +14,14 @@ class GraphNode
 {
 private:
     //// STUDENT CODE
-    ////
+    //// Change to unique ptr to ensure ownership
 
     // data handles (owned)
-    // Change to unique ptr to ensure ownership
     std::vector<std::unique_ptr<GraphEdge>> _childEdges;  // edges to subsequent nodes
 
     // data handles (not owned)
     std::vector<GraphEdge *> _parentEdges; // edges to preceding nodes 
+
     // Changed from pointer to instance allocated on the stack
     ChatBot _chatBot;
 
@@ -50,9 +50,7 @@ public:
     void AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge);
 
     //// STUDENT CODE
-    ////
-
-    // Changed from pointer to value since it is called by move semantics
+    //// Changed from pointer to value since it is called by move semantics
     void MoveChatbotHere(ChatBot chatbot);
 
     ////

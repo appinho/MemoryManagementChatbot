@@ -10,9 +10,8 @@ GraphNode::GraphNode(int id)
 GraphNode::~GraphNode()
 {
     //// STUDENT CODE
-    ////
+    //// Comment since chat bot is assigned on the stack
 
-    // Comment since chat bot is assigned on the stack
     // delete _chatBot; 
 
     ////

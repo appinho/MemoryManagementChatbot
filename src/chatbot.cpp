@@ -30,6 +30,7 @@ ChatBot::ChatBot(std::string filename)
     _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
 }
 
+// 1 Destructor
 ChatBot::~ChatBot()
 {
     std::cout << "ChatBot Destructor" << std::endl;
@@ -43,39 +44,46 @@ ChatBot::~ChatBot()
 }
 
 //// STUDENT CODE
-////
+//// Complete Rule of five
 
-// Complete Rule of five
+// 2 Copy constructor
 ChatBot::ChatBot(const ChatBot &other){
 
     std::cout << "ChatBot Copy Constructor" << std::endl;
 
-    // Moving members
-    _chatLogic = other._chatLogic ;
+    // Copy class members
+    _chatLogic = other._chatLogic;
     _rootNode = other._rootNode;
     _currentNode = other._currentNode;
     _image = new wxBitmap();
     *_image = *other._image;
 }
 
+// 3 Copy assignment operator
 ChatBot &ChatBot::operator=(const ChatBot &other){
 
     std::cout << "ChatBot Copy Assignment Operator" << std::endl;
     
+    // Check if same instance is assigned
     if (this == &other)
         return *this;
+
+    // Check if image data on the heap is present
     if(_image != NULL)
         delete _image;
 
+    // Copy class members
     _chatLogic = other._chatLogic;
     _rootNode = other._rootNode;
     _currentNode = other._currentNode;
     _image = new wxBitmap();
     *_image = *other._image;
     
+    // Return non-const reference
     return *this;
 }
 
+// 4 Move constructor
 ChatBot::ChatBot(ChatBot &&other){
 
     std::cout << "ChatBot Move Constructor" << std::endl;
@@ -87,20 +95,23 @@ ChatBot::ChatBot(ChatBot &&other){
     _image = other._image;
     _chatLogic->SetChatbotHandle(this);
 
-    // invalidating other chat bot
+    // Invalidating passed object
     other._chatLogic = nullptr;
     other._rootNode = nullptr;
     other._currentNode = nullptr;
     other._image = NULL;
 }
 
+// 5 Move assignment operator
 ChatBot &ChatBot::operator=(ChatBot &&other){
 
     std::cout << "ChatBot Move Assignment Operator" << std::endl;
 
+    // Check if same instance is assigned
     if (this == &other){
         return *this;
     }
+    // Check if image data on the heap is present
     if(_image != NULL)
         delete _image;
 
@@ -111,7 +122,7 @@ ChatBot &ChatBot::operator=(ChatBot &&other){
     _image = other._image;
     _chatLogic->SetChatbotHandle(this);
 
-    // invalidating other chat bot
+    // Invalidating passed object
     other._chatLogic = nullptr;
     other._rootNode = nullptr;
     other._currentNode = nullptr;

@@ -15,11 +15,12 @@ class ChatLogic
 {
 private:
     //// STUDENT CODE
-    ////
+    //// Change to unique pointers and removed edges since they are moved by semantics
 
     // data handles (owned)
     // Change to unique ptrs to ensure ownership
     std::vector<std::unique_ptr<GraphNode>> _nodes;
+
     // No longer needed
     //std::vector<GraphEdge *> _edges;
 

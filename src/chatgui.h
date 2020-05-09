@@ -15,8 +15,7 @@ private:
     wxBitmap _image;
 
     //// STUDENT CODE
-    ////
-
+    //// Make chat logic an exclusive resource of this class by using unique ptr
     std::unique_ptr<ChatLogic> _chatLogic;
 
     ////

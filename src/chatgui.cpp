@@ -115,7 +115,7 @@ ChatBotPanelDialog::ChatBotPanelDialog(wxWindow *parent, wxWindowID id)
     wxInitAllImageHandlers();
 
     //// STUDENT CODE
-    ////
+    //// Change ownership to be exclusive with unique_ptr
 
     // create chat logic instance
     _chatLogic = std::make_unique<ChatLogic>(); 
@@ -133,7 +133,7 @@ ChatBotPanelDialog::ChatBotPanelDialog(wxWindow *parent, wxWindowID id)
 ChatBotPanelDialog::~ChatBotPanelDialog()
 {
     //// STUDENT CODE
-    ////
+    //// Remove delete operation since object is not allocated on the heap anymore
     // no more delete needed since it is a unique ptr
     // delete _chatLogic;
     ////
