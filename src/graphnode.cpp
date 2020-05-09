@@ -1,5 +1,6 @@
 #include "graphedge.h"
 #include "graphnode.h"
+#include <iostream>
 
 GraphNode::GraphNode(int id)
 {
@@ -11,7 +12,8 @@ GraphNode::~GraphNode()
     //// STUDENT CODE
     ////
 
-    delete _chatBot; 
+    // Comment since chat bot is assigned on the stack
+    // delete _chatBot; 
 
     ////
     //// EOF STUDENT CODE
@@ -27,23 +29,28 @@ void GraphNode::AddEdgeToParentNode(GraphEdge *edge)
     _parentEdges.push_back(edge);
 }
 
-void GraphNode::AddEdgeToChildNode(GraphEdge *edge)
+// Change to unique ptr and move semantics
+void GraphNode::AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge)
 {
-    _childEdges.push_back(edge);
+    _childEdges.push_back(std::move(edge));
 }
 
 //// STUDENT CODE
 ////
-void GraphNode::MoveChatbotHere(ChatBot *chatbot)
+void GraphNode::MoveChatbotHere(ChatBot chatbot)
 {
-    _chatBot = chatbot;
-    _chatBot->SetCurrentNode(this);
+    // insert std::move to make it r value
+    _chatBot = std::move(chatbot);
+    // Changed call since it is not a raw pointer anymore
+    _chatBot.SetCurrentNode(this);
 }
 
 void GraphNode::MoveChatbotToNewNode(GraphNode *newNode)
 {
-    newNode->MoveChatbotHere(_chatBot);
-    _chatBot = nullptr; // invalidate pointer at source
+    // Move chat bot around to avoid copying
+    newNode->MoveChatbotHere(std::move(_chatBot));
+    // invalidating pointer is not needed anymore since it is moved
+    // _chatBot = nullptr; // invalidate pointer at source
 }
 ////
 //// EOF STUDENT CODE
@@ -52,8 +59,8 @@ GraphEdge *GraphNode::GetChildEdgeAtIndex(int index)
 {
     //// STUDENT CODE
     ////
-
-    return _childEdges[index];
+    // Added get since edges are unique ptrs
+    return _childEdges[index].get();
 
     ////
     //// EOF STUDENT CODE
